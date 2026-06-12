@@ -1,0 +1,14 @@
+[package]
+name = "ikvm_ast2100"
+version = "0.0.1"
+edition = "2021"
+
+[lib]
+name = "ikvm_ast2100"
+crate-type = ["cdylib"]
+
+[features]
+integration = []
+
+[dependencies]
+pyo3 = { version = "0.23", features = ["extension-module"] }
