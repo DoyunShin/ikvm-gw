@@ -1,0 +1,6 @@
+secret
+captures/
+__pycache__/
+.venv/
+*.bin
+.pytest_cache/
