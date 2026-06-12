@@ -4,3 +4,8 @@ __pycache__/
 .venv/
 *.bin
 .pytest_cache/
+refjs/
+target/
+*.so
+*.pyd
+*.png
