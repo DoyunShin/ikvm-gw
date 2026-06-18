@@ -117,3 +117,12 @@ WebSocket subprotocol:
 uv run pytest -q                                              # Python
 cargo test --manifest-path native/ikvm_ast2100/Cargo.toml     # Rust decoder
 ```
+
+## License
+
+GNU Lesser General Public License v3.0 or later (LGPL-3.0-or-later). See
+[`COPYING.LESSER`](COPYING.LESSER) (LGPL terms) and [`COPYING`](COPYING) (the
+GPL-3.0 text the LGPL builds on).
+
+noVNC is loaded unmodified from a CDN at runtime and is not redistributed here
+(noVNC is MPL-2.0).

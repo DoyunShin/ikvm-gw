@@ -2,6 +2,7 @@
 name = "ikvm_ast2100"
 version = "0.0.1"
 edition = "2021"
+license = "LGPL-3.0-or-later"
 
 [lib]
 name = "ikvm_ast2100"
