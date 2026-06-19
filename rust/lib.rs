@@ -444,7 +444,7 @@ fn move_block_index(txb: &mut usize, tyb: &mut usize, step_x: usize, step_y: usi
 
 #[pyfunction]
 fn decoder_version() -> &'static str {
-    "ikvm_ast2100 0.1.0"
+    "ikvm_gateway._ast2100 1.0.0"
 }
 
 #[pymodule]
