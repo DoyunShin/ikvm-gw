@@ -4,7 +4,7 @@ build-backend = "maturin"
 
 [project]
 name = "ikvm-gw"
-version = "1.0.0"
+version = "1.0.1"
 description = "Supermicro HTML5 iKVM (ATEN AST2100) to standard RFB/VNC-over-WebSocket transcoding gateway"
 readme = "README.md"
 requires-python = ">=3.12"
