@@ -20,9 +20,10 @@ view and control the BMC console. Credentials never reach the browser.
    token), opens `wss://<bmc>/`, completes the InsydeVNC type-16 handshake
    (echo `RFB 055.008`, security type `0x10`, send `token[24] + zero[24]`), then
    decodes each `0x57` AST2100 rectangle into an RGB framebuffer.
-2. **Decoder (`native/ikvm_ast2100/`)** — the AST2100 codec, implemented in Rust
-   (PyO3), reimplemented from the board's own served decoder. Full-frame decode is
-   ~1-3 ms.
+2. **Decoder (`rust/`, shipped as `ikvm_gateway._ast2100`)** — the AST2100 codec,
+   implemented in Rust (PyO3), reimplemented from the board's own served decoder.
+   Full-frame decode is ~1-3 ms. It is bundled into the same wheel as the Python
+   package.
 3. **Downstream (`src/ikvm_gateway/downstream/`)** — a standard RFB 3.8 server
    offering **security None**, serving the framebuffer as Raw over a binary
    WebSocket. Stock noVNC connects directly.
@@ -31,13 +32,19 @@ view and control the BMC console. Credentials never reach the browser.
 
 ## Install
 
-Requires Python >= 3.12, [uv](https://docs.astral.sh/uv/), and a Rust toolchain
-(for the decoder).
+From PyPI (prebuilt wheels bundle the native decoder; no Rust toolchain needed):
+
+```bash
+pip install ikvm-gateway
+```
+
+For development, requires Python >= 3.12, [uv](https://docs.astral.sh/uv/), and a
+Rust toolchain. The project builds as a single maturin mixed Rust/Python wheel:
 
 ```bash
 uv sync
-# build the Rust decoder into the venv
-VIRTUAL_ENV="$PWD/.venv" uv run maturin develop --manifest-path native/ikvm_ast2100/Cargo.toml
+# build the Rust decoder into the venv (reads ./pyproject.toml + ./Cargo.toml)
+VIRTUAL_ENV="$PWD/.venv" uv run maturin develop
 ```
 
 ## Run
@@ -114,9 +121,17 @@ WebSocket subprotocol:
 ## Tests
 
 ```bash
-uv run pytest -q                                              # Python
-cargo test --manifest-path native/ikvm_ast2100/Cargo.toml     # Rust decoder
+uv run pytest -q     # Python
+cargo test           # Rust decoder
 ```
+
+## Release
+
+Tagging a version (e.g. `git tag v0.1.0 && git push --tags`) triggers
+`.github/workflows/pypi.yaml`, which builds abi3 wheels (Linux x86_64/aarch64,
+macOS x86_64/arm64, Windows x64) plus an sdist and publishes to PyPI via Trusted
+Publishing (OIDC) — register the repo as a Trusted Publisher for the
+`ikvm-gateway` project on PyPI first (environment `pypi`).
 
 ## License
 
