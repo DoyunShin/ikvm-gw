@@ -1,16 +1,28 @@
+[build-system]
+requires = ["maturin>=1.7,<2"]
+build-backend = "maturin"
+
 [project]
 name = "ikvm-gateway"
 version = "0.0.1"
+description = "Supermicro HTML5 iKVM (ATEN AST2100) to standard RFB/VNC-over-WebSocket transcoding gateway"
+readme = "README.md"
 requires-python = ">=3.12"
 license = { text = "LGPL-3.0-or-later" }
 classifiers = [
     "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Rust",
+    "Topic :: System :: Hardware",
 ]
 dependencies = [
     "websockets>=14",
     "prompt_toolkit",
     "numpy>=2",
 ]
+
+[project.scripts]
+ikvm-gateway = "ikvm_gateway.__main__:main"
 
 [dependency-groups]
 dev = [
@@ -19,9 +31,11 @@ dev = [
     "pillow",
 ]
 
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
-[tool.hatch.build.targets.wheel]
-packages = ["src/ikvm_gateway", "spike"]
+[tool.maturin]
+python-source = "src"
+module-name = "ikvm_gateway._ast2100"
+features = ["pyo3/extension-module"]
+# Build the sdist from git-tracked files only. This guarantees the gitignored
+# `secret` (BMC credentials), `captures/`, and `refjs/` (vendor reference JS)
+# never enter a published source distribution.
+sdist-generator = "git"

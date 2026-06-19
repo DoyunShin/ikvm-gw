@@ -20,7 +20,7 @@ import time
 from pathlib import Path
 from typing import Any
 
-import ikvm_ast2100
+from ikvm_gateway import _ast2100 as ikvm_ast2100
 
 from ikvm_gateway.framebuffer import FramebufferSource
 from ikvm_gateway.input.translate import build_aten_key_event, build_aten_pointer_event

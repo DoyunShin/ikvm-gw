@@ -1,15 +1,16 @@
 [package]
-name = "ikvm_ast2100"
+name = "ikvm-gateway-ast2100"
 version = "0.0.1"
 edition = "2021"
 license = "LGPL-3.0-or-later"
 
 [lib]
-name = "ikvm_ast2100"
+name = "_ast2100"
+path = "rust/lib.rs"
 crate-type = ["cdylib"]
 
 [features]
 integration = []
 
 [dependencies]
-pyo3 = { version = "0.23", features = ["extension-module"] }
+pyo3 = { version = "0.23", features = ["extension-module", "abi3-py312"] }

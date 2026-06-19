@@ -448,7 +448,7 @@ fn decoder_version() -> &'static str {
 }
 
 #[pymodule]
-fn ikvm_ast2100(m: &Bound<'_, PyModule>) -> PyResult<()> {
+fn _ast2100(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(decoder_version, m)?)?;
     m.add_function(wrap_pyfunction!(decode_frame, m)?)?;
     Ok(())
