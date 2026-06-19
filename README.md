@@ -35,7 +35,7 @@ view and control the BMC console. Credentials never reach the browser.
 From PyPI (prebuilt wheels bundle the native decoder; no Rust toolchain needed):
 
 ```bash
-pip install ikvm-gateway
+pip install ikvm-gw
 ```
 
 For development, requires Python >= 3.12, [uv](https://docs.astral.sh/uv/), and a
@@ -131,7 +131,7 @@ Tagging a version (e.g. `git tag v0.1.0 && git push --tags`) triggers
 `.github/workflows/pypi.yaml`, which builds abi3 wheels (Linux x86_64/aarch64,
 macOS x86_64/arm64, Windows x64) plus an sdist and publishes to PyPI via Trusted
 Publishing (OIDC) — register the repo as a Trusted Publisher for the
-`ikvm-gateway` project on PyPI first (environment `pypi`).
+`ikvm-gw` project on PyPI first.
 
 ## License
 

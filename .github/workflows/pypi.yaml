@@ -4,7 +4,7 @@ name: pypi
 # then publish to PyPI via Trusted Publishing (OIDC) on a version tag.
 #
 # Prerequisite (one-time, on PyPI): register this repo as a Trusted Publisher
-# for the `ikvm-gateway` project:
+# for the `ikvm-gw` project:
 #   PyPI -> project -> Publishing -> Add a GitHub publisher
 #     Owner: DoyunShin   Repository: ikvm-gw
 #     Workflow: pypi.yaml   Environment: pypi
@@ -103,7 +103,7 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')
     environment:
       name: pypi
-      url: https://pypi.org/p/ikvm-gateway
+      url: https://pypi.org/p/ikvm-gw
     permissions:
       id-token: write  # OIDC token for Trusted Publishing
     steps:
