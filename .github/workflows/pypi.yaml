@@ -96,10 +96,30 @@ jobs:
           name: wheels-sdist
           path: dist
 
+  verify-wheel:
+    name: Verify installed wheel imports
+    runs-on: ubuntu-latest
+    needs: [linux]
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: wheels-linux-x86_64
+          path: dist
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install the built wheel and import the package
+        run: |
+          python -m venv /tmp/smoke
+          /tmp/smoke/bin/pip install dist/ikvm_gw-*.whl
+          # Import from a neutral cwd so the repo tree cannot mask a missing module.
+          cd /tmp
+          /tmp/smoke/bin/python -c "import ikvm_gateway.app; import ikvm_gateway.upstream.client; from ikvm_gateway import _ast2100; print('wheel import OK:', _ast2100.decoder_version())"
+
   publish:
     name: Publish to PyPI
     runs-on: ubuntu-latest
-    needs: [linux, macos, windows, sdist]
+    needs: [linux, macos, windows, sdist, verify-wheel]
     if: startsWith(github.ref, 'refs/tags/')
     environment:
       name: pypi
